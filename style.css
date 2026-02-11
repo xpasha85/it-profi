@@ -9,9 +9,19 @@
 
     /* Фон и Стекло */
     --bg-gradient: linear-gradient(135deg, #F0F4F8 0%, #D9E2EC 100%);
-    --glass-bg: rgba(255, 255, 255, 0.65);
+    /* --glass-bg: rgba(255, 255, 255, 0.65);
     --glass-border: 1px solid rgba(255, 255, 255, 0.5);
-    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1); */
+
+    /* Более прозрачный, но "белесый" фон */
+    --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
+    
+    /* Граница с эффектом блеска (сверху ярче, снизу тусклее) */
+    --glass-border: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.2) 100%);
+    
+    /* Мягкая, глубокая тень для объема */
+    --glass-shadow: 0 15px 35px 0 rgba(31, 38, 135, 0.1);
+
     
     /* Отступы */
     --container-width: 1200px;
@@ -46,10 +56,36 @@ body {
 .glass-panel {
     background: var(--glass-bg);
     backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px); /* Для Safari */
-    border: var(--glass-border);
-    border-radius: 20px;
-    box-shadow: var(--glass-shadow);
+    -webkit-backdrop-filter: blur(12px);
+    
+    /* Используем border-image для градиентной рамки */
+    border: 1px solid rgba(255, 255, 255, 0.5); 
+    
+    border-radius: 24px;
+    
+    /* Комбинация теней: 
+       1. Внешняя тень для объема
+       2. Внутренняя белая тень (inset) для эффекта фаски/блеска по краям 
+    */
+    box-shadow: 
+        var(--glass-shadow),
+        inset 0 0 12px 2px rgba(255, 255, 255, 0.3); 
+    
+    position: relative;
+    overflow: hidden;
+}
+
+.glass-panel::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    /* Тонкий блик сверху и слева */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 1;
 }
 
 /* Кнопка (Orange) */
@@ -357,8 +393,28 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 60px; /* Внутренние отступы панели */
-    background: rgba(255, 255, 255, 0.75); /* Чуть плотнее стекло, чтобы читалось */
+    padding: 30px 60px;
+    
+    /* Применяем обновленную формулу стекла */
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 24px;
+    box-shadow: 
+        var(--glass-shadow),
+        inset 0 0 12px 2px rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Добавляем блик для Trust Block */
+.trust-grid::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .trust-item {
@@ -581,8 +637,27 @@ h1 {
 .cta-box {
     text-align: center;
     padding: 60px 40px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.6) 100%);
-    border: 2px solid rgba(255, 255, 255, 0.8);
+    
+    /* Те же настройки глубокого стекла */
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px); /* Для CTA можно чуть сильнее размытие */
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 32px; /* Более мягкое скругление для финала */
+    box-shadow: 
+        var(--glass-shadow),
+        inset 0 0 20px 5px rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Добавляем блик для CTA Box */
+.cta-box::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, transparent 40%);
+    pointer-events: none;
 }
 
 .cta-content h2 {
