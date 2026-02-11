@@ -248,7 +248,7 @@ section {
        transparent 95% — края плавно исчезают чуть раньше конца картинки.
     */
     -webkit-mask-image: radial-gradient(ellipse at center, black 50%, transparent 95%);
-    mask-image: radial-gradient(ellipse at center, black 50%, transparent 85%);
+    mask-image: radial-gradient(ellipse at center, black 50%, transparent 80%);
     
     animation: float 6s ease-in-out infinite;
 }
@@ -810,4 +810,16 @@ h1 {
         flex-direction: column;
         align-items: center;
     }
+}
+
+/* --- АНИМАЦИЯ ПОЯВЛЕНИЯ (в связке с JS) --- */
+section.hidden {
+    opacity: 0;
+    transform: translateY(30px); /* Чуть смещен вниз */
+    transition: all 0.8s ease-out; /* Плавное всплытие */
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0); /* Встает на место */
 }
