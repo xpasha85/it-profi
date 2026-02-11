@@ -1,0 +1,813 @@
+/* --- 1. ПЕРЕМЕННЫЕ И НАСТРОЙКИ --- */
+:root {
+    /* Цвета из логотипа */
+    --color-orange: #F37021;
+    --color-green: #8CC63F;
+    --color-dark: #4A4A4A;      /* Основной текст */
+    --color-gray: #7A8CA0;      /* Второстепенный текст */
+    --color-white: #FFFFFF;
+
+    /* Фон и Стекло */
+    --bg-gradient: linear-gradient(135deg, #F0F4F8 0%, #D9E2EC 100%);
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+    
+    /* Отступы */
+    --container-width: 1200px;
+    --section-gap: 80px;
+}
+
+/* Сброс стилей */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--color-dark);
+    line-height: 1.5;
+    min-height: 100vh;
+}
+
+/* Контейнер по центру */
+.container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- 2. УТИЛИТЫ (Классы-помощники) --- */
+
+/* Эффект стекла (Glassmorphism) */
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px); /* Для Safari */
+    border: var(--glass-border);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+}
+
+/* Кнопка (Orange) */
+.btn-primary {
+    display: inline-block;
+    background-color: var(--color-orange);
+    color: var(--color-white);
+    padding: 16px 32px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(243, 112, 33, 0.25);
+}
+
+/* Временные отступы для секций, чтобы видеть структуру */
+section {
+    margin-bottom: var(--section-gap);
+    /* Временно добавим рамку, чтобы ты видел границы блоков (потом уберем) */
+    /* border: 1px dashed #ccc; */ 
+    padding: 20px 0;
+}
+
+/* --- HEADER STYLES --- */
+
+/* Сам контейнер хедера */
+/* --- ОБНОВЛЕННЫЙ HEADER (ПАРЯЩАЯ КАПСУЛА) --- */
+.header {
+    position: sticky;       /* Липкое позиционирование */
+    top: 20px;              /* Отступ сверху (чтобы парил) */
+    z-index: 1000;          /* Поверх всех слоев */
+    
+    /* Исправление прилипания: */
+    width: calc(100% - 40px); /* Всегда оставляем зазор по 20px с краев */
+    max-width: 1240px;        /* Но не шире 1240px */
+    margin: 0 auto;           /* Центрируем саму капсулу */
+    
+    /* Внутренние отступы капсулы */
+    padding: 12px 24px;     /* Чуть больше воздуха по бокам */
+    
+    /* Скругляем углы (наследуется от .glass-panel, но уточним) */
+    border-radius: 24px;
+}
+
+
+/* Внутренняя сетка хедера */
+.header-content {
+    display: flex;
+    justify-content: space-between; /* Раскидываем по краям */
+    align-items: center;            /* Выравниваем по вертикали */
+}
+
+/* -- 1. Логотип -- */
+.logo-wrapper {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px; /* Расстояние между лого и точкой */
+}
+
+/* --- LOGO IMAGE STYLES --- */
+.logo-img {
+    height: 40px; /* Высота под размер хедера */
+    width: auto;  /* Ширина подстроится сама */
+    display: block;
+}
+
+/* Чуть поправим отступ, чтобы статус не прилипал к логотипу */
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Больше воздуха между лого и статусом */
+    text-decoration: none;
+}
+
+/* Статус системы (Зеленая точка + текст) */
+.system-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--color-gray);
+    border-left: 1px solid rgba(0,0,0,0.1);
+    padding-left: 12px;
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--color-green);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--color-green);
+    animation: pulse 2s infinite; /* Анимация пульсации */
+}
+
+/* -- 2. Меню -- */
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 30px; /* Расстояние между ссылками */
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--color-dark);
+    font-size: 15px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--color-orange);
+}
+
+/* -- 3. Контакты -- */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.phone-link {
+    text-decoration: none;
+    color: var(--color-dark);
+    font-weight: 600;
+    font-size: 15px;
+}
+
+/* Уменьшенная кнопка для хедера */
+.btn-small {
+    background-color: var(--color-orange);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: transform 0.2s;
+}
+
+.btn-small:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(243, 112, 33, 0.2);
+}
+
+/* Анимация пульсации (добавь в конец CSS, если еще не добавил) */
+@keyframes pulse {
+    0% { opacity: 1; box-shadow: 0 0 0 0 rgba(140, 198, 63, 0.4); }
+    70% { opacity: 1; box-shadow: 0 0 0 6px rgba(140, 198, 63, 0); }
+    100% { opacity: 1; box-shadow: 0 0 0 0 rgba(140, 198, 63, 0); }
+
+
+}
+
+
+/* --- HERO SECTION --- */
+
+.hero-section {
+    padding-top: 60px; /* Отступ от хедера */
+    padding-bottom: 100px;
+    position: relative;
+    overflow: hidden; /* Чтобы свечение не вылезало за экран */
+}
+
+.hero-grid {
+    display: grid;
+    /* ЛЕВАЯ колонка резиновая (1fr), ПРАВАЯ фиксированная (600px) */
+    grid-template-columns: 1fr 600px; 
+    align-items: center;
+    gap: 20px; /* Уменьшил отступ, чтобы текст дольше влезал */
+}
+
+.hero-image-wrapper {
+    position: relative;
+    width: 100%;       /* Занимает все свои 600px */
+    /* Убрал max-width, чтобы она не сжималась */
+}
+
+/* При этом картинка внутри должна заполнять wrapper */
+.hero-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    
+    /* Этот сложный градиент делает маску в форме эллипса, 
+       которая идеально вписывается в прямоугольник.
+       black 50% — центр полностью виден.
+       transparent 95% — края плавно исчезают чуть раньше конца картинки.
+    */
+    -webkit-mask-image: radial-gradient(ellipse at center, black 50%, transparent 95%);
+    mask-image: radial-gradient(ellipse at center, black 50%, transparent 85%);
+    
+    animation: float 6s ease-in-out infinite;
+}
+
+/* -- ТЕКСТОВАЯ ЧАСТЬ -- */
+
+/* Маленькая плашка статуса над заголовком */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(140, 198, 63, 0.1); /* Полупрозрачный зеленый */
+    color: #5C8A2E; /* Темно-зеленый текст */
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    border: 1px solid rgba(140, 198, 63, 0.2);
+}
+
+h1 {
+    font-size: 56px; /* Крупный заголовок */
+    line-height: 1.1;
+    font-weight: 800;
+    color: var(--color-dark);
+    margin-bottom: 24px;
+    letter-spacing: -1px;
+}
+
+.hero-subtitle {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--color-gray);
+    margin-bottom: 40px;
+    max-width: 500px;
+}
+
+/* Кнопки и подписи */
+.hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.hero-secondary-text {
+    font-size: 14px;
+    color: var(--color-gray);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.check-icon {
+    color: var(--color-green);
+    font-weight: bold;
+}
+
+/* -- ВИЗУАЛЬНАЯ ЧАСТЬ (3D КАРТИНКА) -- */
+
+.hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.hero-image-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 600px; /* Ограничиваем размер картинки */
+}
+
+
+
+/* Эффект свечения под картинкой (Ambient Light) */
+.glow-effect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(66, 165, 245, 0.4) 0%, rgba(255, 255, 255, 0) 70%);
+    filter: blur(60px);
+    z-index: -1; /* Помещаем ПОД картинку */
+}
+
+/* Анимация парения */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+
+/* --- TRUST SECTION (KPI) --- */
+
+.trust-section {
+    margin-top: -40px; /* ВАЖНО: Наезжаем на предыдущий блок, чтобы связать их */
+    position: relative;
+    z-index: 10;
+    margin-bottom: 100px;
+}
+
+.trust-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 60px; /* Внутренние отступы панели */
+    background: rgba(255, 255, 255, 0.75); /* Чуть плотнее стекло, чтобы читалось */
+}
+
+.trust-item {
+    text-align: center;
+    flex: 1; /* Все блоки занимают равное место */
+}
+
+.trust-value {
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--color-orange); /* Акцент на цифрах */
+    margin-bottom: 4px;
+    letter-spacing: -1px;
+}
+
+.trust-label {
+    font-size: 14px;
+    color: var(--color-gray);
+    font-weight: 500;
+}
+
+/* Вертикальные разделители */
+.trust-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.1); /* Полупрозрачная черта */
+}
+
+/* Адаптив для Trust Block (на планшетах ломаем в 2 строки) */
+@media (max-width: 960px) {
+    .trust-grid {
+        flex-wrap: wrap;
+        gap: 30px;
+        padding: 30px;
+    }
+    
+    .trust-item {
+        flex: 1 1 40%; /* По 2 штуки в ряд */
+        margin-bottom: 10px;
+    }
+    
+    .trust-divider {
+        display: none; /* Убираем черточки на мобильных */
+    }
+}
+
+/* --- SERVICES SECTION --- */
+
+.services-section {
+    padding: 80px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--color-dark);
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--color-gray);
+    margin-bottom: 60px;
+    font-size: 18px;
+}
+
+/* Сетка карточек */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 равные колонки */
+    gap: 30px;
+}
+
+/* --- СТИЛЬ КАРТОЧКИ --- */
+.service-card {
+    padding: 40px 30px;
+    transition: all 0.3s ease; /* Плавная анимация всего */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Исходная рамка */
+    cursor: default;
+}
+
+/* Эффект при наведении (HOVER) */
+.service-card:hover {
+    transform: translateY(-10px); /* Всплывает вверх */
+    background: rgba(255, 255, 255, 0.85); /* Становится менее прозрачной */
+    border-color: var(--color-green); /* Неоновая зеленая рамка! */
+    box-shadow: 0 20px 40px rgba(140, 198, 63, 0.15); /* Зеленоватая тень */
+}
+
+/* Иконка */
+.card-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(140, 198, 63, 0.1); /* Подложка (светло-зеленая) */
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    color: #5C8A2E; /* Цвет самой иконки (SVG) */
+    transition: color 0.3s;
+}
+
+.service-card:hover .card-icon {
+    background: var(--color-green); /* При наведении иконка становится яркой */
+    color: #fff; /* А символ белым */
+}
+
+.service-card h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+/* Список услуг */
+.service-list {
+    list-style: none;
+    padding: 0;
+}
+
+.service-list li {
+    margin-bottom: 12px;
+    color: var(--color-dark);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Добавляем зеленый маркер перед каждым пунктом */
+.service-list li::before {
+    content: "•";
+    color: var(--color-green);
+    font-size: 20px;
+    line-height: 0;
+}
+
+/* Адаптив для услуг */
+@media (max-width: 960px) {
+    .services-grid {
+        grid-template-columns: 1fr; /* Одна колонка на мобилках */
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+
+/* --- COMPARISON SECTION --- */
+
+.comparison-container {
+    padding: 40px;
+    max-width: 1000px;
+    margin: 0 auto; /* Центрируем таблицу */
+}
+
+.comparison-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.col-bad { color: var(--color-gray); padding-left: 20px; }
+.col-good { color: var(--color-green); padding-left: 20px; }
+
+.comparison-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 24px 0;
+    border-bottom: 1px dashed rgba(0,0,0,0.1); /* Пунктирная линия между строками */
+}
+
+.comparison-row.no-border { border-bottom: none; }
+
+.comp-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+/* Иконки */
+.icon-cross {
+    color: #E74C3C; /* Красный цвет для ошибок */
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: -2px;
+}
+
+.icon-check {
+    color: var(--color-green);
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: -2px;
+}
+
+/* Тексты внутри сравнения */
+.comp-item strong {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--color-dark);
+}
+
+.comp-item p {
+    font-size: 14px;
+    color: var(--color-gray);
+    line-height: 1.4;
+}
+
+/* --- CTA SECTION (Форма захвата) --- */
+
+.cta-section {
+    padding-bottom: 100px;
+}
+
+.cta-box {
+    text-align: center;
+    padding: 60px 40px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.6) 100%);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.cta-content h2 {
+    font-size: 32px;
+    margin-bottom: 16px;
+}
+
+.cta-content p {
+    font-size: 18px;
+    color: var(--color-gray);
+    margin-bottom: 32px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Форма в одну строку */
+.cta-form {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.input-glass {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0,0,0,0.1);
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    width: 300px;
+    transition: all 0.3s;
+}
+
+.input-glass:focus {
+    background: #fff;
+    border-color: var(--color-green);
+    box-shadow: 0 0 0 4px rgba(140, 198, 63, 0.2);
+}
+
+.cta-note {
+    font-size: 13px;
+    color: var(--color-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Адаптив для Сравнения и CTA */
+@media (max-width: 768px) {
+    .comparison-header { display: none; } /* Скрываем заголовки на мобилках */
+    
+    .comparison-row {
+        grid-template-columns: 1fr; /* Одна колонка */
+        gap: 20px;
+    }
+    
+    .cta-form {
+        flex-direction: column; /* Кнопка под полем ввода */
+    }
+    
+    .input-glass { width: 100%; }
+}
+
+/* --- FOOTER STYLES --- */
+
+.footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.6); /* Светлая линия сверху */
+    background: rgba(240, 244, 248, 0.8); /* Полупрозрачный фон */
+    padding-top: 60px;
+    padding-bottom: 30px;
+    font-size: 14px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.5fr; /* 3 колонки */
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+/* Логотип в футере чуть меньше */
+.footer-logo {
+    height: 30px;
+    width: auto;
+    margin-bottom: 16px;
+    opacity: 0.8; /* Чуть приглушаем яркость */
+}
+
+.footer-desc {
+    color: var(--color-gray);
+    line-height: 1.6;
+}
+
+.footer h4 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--color-dark);
+}
+
+/* Ссылки */
+.footer-nav {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-nav li {
+    margin-bottom: 12px;
+}
+
+.footer-nav a {
+    text-decoration: none;
+    color: var(--color-gray);
+    transition: color 0.2s;
+}
+
+.footer-nav a:hover {
+    color: var(--color-orange); /* Оранжевый ховер */
+}
+
+/* Контакты */
+.footer-contacts {
+    list-style: none;
+    padding: 0;
+    color: var(--color-gray);
+    line-height: 1.6;
+}
+
+.footer-contacts li {
+    margin-bottom: 16px;
+}
+
+.contact-label {
+    display: block;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #9AA5B1; /* Очень светло-серый */
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.footer-phone {
+    color: var(--color-dark);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* Нижняя полоска */
+.footer-bottom {
+    border-top: 1px solid rgba(0,0,0,0.05);
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #9AA5B1;
+    font-size: 13px;
+}
+
+/* Дублируем статус, но меньше */
+.system-status-small {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: monospace; /* Технический шрифт */
+}
+
+/* Адаптив Футера */
+@media (max-width: 768px) {
+    .footer-grid {
+        grid-template-columns: 1fr; /* Одна колонка */
+        gap: 40px;
+    }
+    
+    .footer-bottom {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}
+
+
+
+
+
+
+
+
+
+/* --- АДАПТИВНОСТЬ (MEDIA QUERIES) --- */
+
+/* Когда экран становится уже 960px (Планшеты/Маленькие ноутбуки) */
+@media (max-width: 960px) {
+    
+    /* 1. Перестраиваем сетку Hero в одну колонку */
+    .hero-grid {
+        grid-template-columns: 1fr; /* Одна колонка на всех */
+        text-align: center;         /* Центрируем текст */
+        gap: 60px;                  /* Отступ между текстом и картинкой */
+    }
+
+    /* 2. Чиним картинку */
+    .hero-image-wrapper {
+        margin: 0 auto;     /* Центрируем саму картинку */
+        min-width: 400px;   /* ЗАПРЕЩАЕМ ей быть меньше 400px */
+        /* Если экран совсем узкий, она ужмется, но на планшете будет крупной */
+    }
+
+    /* 3. Центрируем кнопки и подписи */
+    .hero-actions {
+        justify-content: center; /* Кнопку по центру */
+    }
+    
+    .hero-subtitle {
+        margin: 0 auto 40px auto; /* Подзаголовок по центру */
+    }
+    
+    /* 4. Центрируем статус "System Operational" */
+    .hero-text {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
