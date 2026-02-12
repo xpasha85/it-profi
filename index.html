@@ -300,8 +300,11 @@
                 <div class="cta-box glass-panel">
                     <div class="cta-content">
                         <form class="cta-form">
-                            <input type="tel" placeholder="+7 (___) ___-__-__" class="input-glass">
-                            <button type="button" class="btn-primary">Заказать аудит</button>
+                            <input type="text" placeholder="Ваше имя" class="input-glass" required>
+                            
+                            <input type="tel" placeholder="+7 (___) ___-__-__" class="input-glass" required>
+                            
+                            <button type="submit" class="btn-primary">Заказать аудит</button>
                         </form>
                         <div class="cta-note">
                             <span class="status-dot"></span> Инженер готов к выезду
@@ -338,7 +341,7 @@
                     <ul class="footer-contacts">
                         <li>
                             <span class="contact-label">Адрес:</span>
-                            Пионерская ул., 19, Уссурийск, <br> Приморский край, 692500
+                            692500, Приморский край<br>Уссурийск, ул. Пионерская, 19
                         </li>
                         <li>
                             <span class="contact-label">Телефон:</span>
@@ -350,6 +353,11 @@
 
             <div class="footer-bottom">
                 <div class="copyright">© 2026 it-profi. Все права защищены.</div>
+
+                <div class="dev-credit">
+                    Разработка: <a href="https://t.me/xpasha85" target="_blank" title="Написать в Telegram">xpasha85</a>
+                </div>
+
                 <div class="system-status-small">
                     <span class="status-dot"></span> All Systems Operational
                 </div>
@@ -359,5 +367,23 @@
     </footer>
 
     <script src="script.js"></script>
+    <a href="#" id="scrollToTopBtn" class="scroll-to-top">↑</a>
+    <div class="modal-overlay" id="successModal">
+        <div class="modal-window glass-panel">
+            <button class="modal-close">&times;</button>
+            
+            <div class="modal-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            
+            <h3>Заявка принята!</h3>
+            <p>Спасибо. Наши инженеры уже получили уведомление. Мы свяжемся с вами в течение 15 минут.</p>
+            
+            <button class="btn-primary modal-btn-ok">Отлично</button>
+        </div>
+    </div>
 </body>
 </html>

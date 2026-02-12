@@ -71,4 +71,78 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // --- Кнопка "Наверх" ---
+
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+    // Отслеживаем скролл страницы
+    window.addEventListener('scroll', function() {
+        // Если прокрутили больше 300px вниз - показываем кнопку
+        if (window.pageYOffset > 300) {
+            scrollToTopBtn.classList.add('show-btn');
+        } else {
+            // Иначе скрываем
+            scrollToTopBtn.classList.remove('show-btn');
+        }
+    });
+
+    // Клик по кнопке
+    scrollToTopBtn.addEventListener('click', function(e) {
+        e.preventDefault(); // Отменяем стандартный переход по якорю #
+        // Плавная прокрутка наверх
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    // --- ОБРАБОТКА ФОРМЫ И МОДАЛЬНОЕ ОКНО ---
+
+    const ctaForm = document.querySelector('.cta-form');
+    const modal = document.getElementById('successModal');
+    const modalCloseBtn = document.querySelector('.modal-close');
+    const modalOkBtn = document.querySelector('.modal-btn-ok');
+
+    // Функция открытия окна
+    function openModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Блокируем скролл сайта
+    }
+
+    // Функция закрытия окна
+    function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Возвращаем скролл
+    }
+
+    if (ctaForm) {
+        ctaForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Отменяем реальную отправку на сервер (так как бэкенда нет)
+            
+            // Тут можно добавить валидацию, но HTML5 required сделает это сам
+            
+            // 1. Показываем окно
+            openModal();
+            
+            // 2. Очищаем форму
+            ctaForm.reset();
+        });
+    }
+
+    // Закрытие по крестику
+    if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+
+    // Закрытие по кнопке "Отлично"
+    if (modalOkBtn) modalOkBtn.addEventListener('click', closeModal);
+
+    // Закрытие по клику вне окна (по темному фону)
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    }
+
 });
