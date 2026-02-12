@@ -1077,4 +1077,59 @@ section.visible {
         animation: none !important; /* УБИРАЕМ ДВИЖЕНИЕ ВВЕРХ-ВНИЗ */
         filter: blur(1px); /* Легкий блюр, чтобы не мешала буквам */
     }
+
+
+    /* ------ блок доверия ----------- */
+    .trust-section {
+        /* 1. Общий отступ секции от Hero блока сверху */
+        padding-top: 40px; 
+        padding-bottom: 00px;
+    }
+    /* Стили заголовков */
+    .trust-header {
+        text-align: center;
+        margin-bottom: 24px;
+        padding: 0 10px;
+    }
+
+    .section-title {
+        font-size: 26px;
+        font-weight: 800;
+        margin-bottom: 12px;
+        color: var(--color-dark);
+    }
+
+    .section-subtitle {
+        font-size: 15px;
+        color: var(--color-gray);
+        line-height: 1.4;
+        margin-bottom: 10px;
+    }
+
+    /* Настройка сетки внутри стеклянной панели */
+    .trust-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Две колонки */
+        gap: 20px;
+        padding: 30px 20px;
+        margin-bottom: 0px;
+    }
+
+    /* Скрываем вертикальные разделители на мобилке, чтобы не мешали */
+    .trust-divider {
+        display: none;
+    }
+
+    .trust-item {
+        text-align: center;
+    }
+
+    .trust-value {
+        font-size: 32px;
+        margin-bottom: 4px;
+    }
+
+    .trust-label {
+        font-size: 13px;
+    }
 }
