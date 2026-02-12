@@ -9,9 +9,6 @@
 
     /* Фон и Стекло */
     --bg-gradient: linear-gradient(135deg, #F0F4F8 0%, #D9E2EC 100%);
-    /* --glass-bg: rgba(255, 255, 255, 0.65);
-    --glass-border: 1px solid rgba(255, 255, 255, 0.5);
-    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1); */
 
     /* Более прозрачный, но "белесый" фон */
     --glass-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
@@ -110,8 +107,6 @@ body {
 /* Временные отступы для секций, чтобы видеть структуру */
 section {
     margin-bottom: var(--section-gap);
-    /* Временно добавим рамку, чтобы ты видел границы блоков (потом уберем) */
-    /* border: 1px dashed #ccc; */ 
     padding: 20px 0;
 }
 
@@ -244,8 +239,6 @@ section {
     0% { opacity: 1; box-shadow: 0 0 0 0 rgba(140, 198, 63, 0.4); }
     70% { opacity: 1; box-shadow: 0 0 0 6px rgba(140, 198, 63, 0); }
     100% { opacity: 1; box-shadow: 0 0 0 0 rgba(140, 198, 63, 0); }
-
-
 }
 
 
@@ -269,7 +262,6 @@ section {
 .hero-image-wrapper {
     position: relative;
     width: 100%;       /* Занимает все свои 600px */
-    /* Убрал max-width, чтобы она не сжималась */
 }
 
 /* При этом картинка внутри должна заполнять wrapper */
@@ -443,23 +435,6 @@ h1 {
     background: rgba(0, 0, 0, 0.1); /* Полупрозрачная черта */
 }
 
-/* Адаптив для Trust Block (на планшетах ломаем в 2 строки) */
-@media (max-width: 960px) {
-    .trust-grid {
-        flex-wrap: wrap;
-        gap: 30px;
-        padding: 30px;
-    }
-    
-    .trust-item {
-        flex: 1 1 40%; /* По 2 штуки в ряд */
-        margin-bottom: 10px;
-    }
-    
-    .trust-divider {
-        display: none; /* Убираем черточки на мобильных */
-    }
-}
 
 /* --- SERVICES SECTION --- */
 
@@ -551,15 +526,6 @@ h1 {
     color: var(--color-green);
     font-size: 20px;
     line-height: 0;
-}
-
-/* Адаптив для услуг */
-@media (max-width: 960px) {
-    .services-grid {
-        grid-template-columns: 1fr; /* Одна колонка на мобилках */
-        max-width: 400px;
-        margin: 0 auto;
-    }
 }
 
 
@@ -709,21 +675,6 @@ h1 {
     gap: 8px;
 }
 
-/* Адаптив для Сравнения и CTA */
-@media (max-width: 768px) {
-    .comparison-header { display: none; } /* Скрываем заголовки на мобилках */
-    
-    .comparison-row {
-        grid-template-columns: 1fr; /* Одна колонка */
-        gap: 20px;
-    }
-    
-    .cta-form {
-        flex-direction: column; /* Кнопка под полем ввода */
-    }
-    
-    .input-glass { width: 100%; }
-}
 
 /* --- FOOTER STYLES --- */
 
@@ -827,64 +778,6 @@ h1 {
     align-items: center;
     gap: 8px;
     font-family: monospace; /* Технический шрифт */
-}
-
-/* Адаптив Футера */
-@media (max-width: 768px) {
-    .footer-grid {
-        grid-template-columns: 1fr; /* Одна колонка */
-        gap: 40px;
-    }
-    
-    .footer-bottom {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
-    }
-}
-
-
-
-
-
-
-
-
-
-/* --- АДАПТИВНОСТЬ (MEDIA QUERIES) --- */
-
-/* Когда экран становится уже 960px (Планшеты/Маленькие ноутбуки) */
-@media (max-width: 960px) {
-    
-    /* 1. Перестраиваем сетку Hero в одну колонку */
-    .hero-grid {
-        grid-template-columns: 1fr; /* Одна колонка на всех */
-        text-align: center;         /* Центрируем текст */
-        gap: 60px;                  /* Отступ между текстом и картинкой */
-    }
-
-    /* 2. Чиним картинку */
-    .hero-image-wrapper {
-        margin: 0 auto;     /* Центрируем саму картинку */
-        min-width: 400px;   /* ЗАПРЕЩАЕМ ей быть меньше 400px */
-        /* Если экран совсем узкий, она ужмется, но на планшете будет крупной */
-    }
-
-    /* 3. Центрируем кнопки и подписи */
-    .hero-actions {
-        justify-content: center; /* Кнопку по центру */
-    }
-    
-    .hero-subtitle {
-        margin: 0 auto 40px auto; /* Подзаголовок по центру */
-    }
-    
-    /* 4. Центрируем статус "System Operational" */
-    .hero-text {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
 }
 
 /* --- АНИМАЦИЯ ПОЯВЛЕНИЯ (в связке с JS) --- */
