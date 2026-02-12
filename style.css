@@ -528,6 +528,33 @@ h1 {
     line-height: 0;
 }
 
+/* На десктопе карточки всегда открыты и не кликабельны */
+.service-card details {
+    pointer-events: none; /* Запрещаем закрывать кликом */
+}
+
+.service-card summary {
+    list-style: none;
+    outline: none;
+}
+
+/* Скрываем стандартную стрелку браузера */
+.service-card summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Скрываем нашу кастомную стрелку-галочку */
+.service-card .accordion-arrow {
+    display: none;
+}
+
+/* Убеждаемся, что контент виден */
+.service-card .service-content {
+    display: block !important;
+}
+
+
+
 
 /* --- COMPARISON SECTION --- */
 
@@ -1095,7 +1122,7 @@ section.visible {
     .section-title {
         font-size: 26px;
         font-weight: 800;
-        margin-bottom: 12px;
+        margin: 0 0 0 12px;
         color: var(--color-dark);
     }
 
@@ -1133,104 +1160,221 @@ section.visible {
         font-size: 13px;
     }
 
-    /* --- ЭКОСИСТЕМА СЕРВИСОВ (MOBILE) --- */
 
 
-
+   /* --- ЭКОСИСТЕМА СЕРВИСОВ (ВОЗВРАТ АККОРДЕОНА) --- */
     .services-section {
-        padding: 40px 0; /* Поджимаем отступы секции */
+        padding: 40px 0;
     }
 
-    /* Перестраиваем сетку из 3 колонок в 1 */
     .services-grid {
         display: flex;
         flex-direction: column;
-        gap: 16px; /* Небольшой зазор между карточками */
-        padding: 0 16px;
+        gap: 12px;
+        padding: 0 0px;
     }
 
-
-    /* --- НАСТРОЙКИ ЗАГОЛОВКОВ В УСЛУГАХ (MOBILE) --- */
-    .services-section .section-title {
-        font-size: 26px;        /* Размер главного заголовка */
-        line-height: 1.2;       /* Плотность строк */
-        margin-bottom: 12px;    /* Отступ до подзаголовка */
-        padding: 0 10px;        /* Чтобы не лип к краям */
-        text-align: center;
-    }
-
-    .services-section .section-subtitle {
-        font-size: 15px;        /* Размер подзаголовка */
-        line-height: 1.5;
-        color: var(--color-gray);
-        margin-bottom: 40px;    /* ГЛАВНЫЙ ОТСТУП: от текста до первой карточки */
-        padding: 0 20px;
-        max-width: 100%;
-        text-align: center;
-    }
-
-    /* Дополнительно: если заголовки карточек (h3) кажутся мелкими/крупными */
-    .service-card h3 {
-        font-size: 20px;        /* Название услуги внутри стекла */
-        margin-bottom: 16px;
-        font-weight: 700;
+    .section-title {
+        font-size: 26px;
+        font-weight: 800;
+        margin-bottom: 12px;
         color: var(--color-dark);
     }
 
+    .section-subtitle {
+        font-size: 15px;
+        color: var(--color-gray);
+        line-height: 1.4;
+        margin-bottom: 28px;
+    }
+
     .service-card {
-        padding: 30px 24px;
+        padding: 0; 
         width: 100%;
-        text-align: left;
-        
-        /* 1. ВОЗВРАЩАЕМ СТЕКЛО (как в Trust) */
         background: var(--glass-bg);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(255, 255, 255, 0.5);
-        box-shadow: 
-            var(--glass-shadow),
-            inset 0 0 12px 2px rgba(255, 255, 255, 0.3);
-            
-        /* 2. УБИРАЕМ СКЕЙЛ (чтобы не дергалось при скролле) */
-        transform: none !important;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 20px;
+        box-shadow: var(--glass-shadow);
+        -webkit-tap-highlight-color: transparent;
     }
 
-    /* ОТМЕНЯЕМ ХОВЕР-ЭФФЕКТЫ ДЛЯ ТАЧ-ЭКРАНОВ */
+    /* ФИКС ХОВЕРА: Запрещаем побеление при тапе */
     .service-card:hover {
+        background: var(--glass-bg) !important;
         transform: none !important;
-        /* Оставляем легкое свечение, но убираем сдвиг */
-        box-shadow: var(--glass-shadow); 
+        border-color: rgba(255, 255, 255, 0.5) !important;
     }
 
-    /* ВМЕСТО ХОВЕРА: ЛЕГКИЙ ОТКЛИК ПРИ НАЖАТИИ */
-    .service-card:active {
-        border-color: var(--color-green); /* Наша фирменная зеленая рамка */
-        background: rgba(255, 255, 255, 0.5); /* Чуть больше яркости */
-        box-shadow: 0 10px 30px rgba(140, 198, 63, 0.15); /* Зеленое свечение */
+    /* Настройки интерактивности */
+    .service-card details {
+        width: 100%;
+        pointer-events: auto; /* Включаем клики */
     }
 
-    .service-card:active .card-icon {
-        background: var(--color-green);
-        color: #fff;
+    summary { 
+        padding: 14px 20px;
+        gap: 12px; 
+        list-style: none; 
+        outline: none; 
+        cursor: pointer;
+        
+        /* ГЛАВНОЕ ИСПРАВЛЕНИЕ: */
+        display: flex; 
+        align-items: center; /* Центрируем иконку, текст и стрелку по вертикали */
+        justify-content: space-between; /* Текст слева, стрелка прижата вправо */
+        width: 100%;
+        outline: none !important;
+        -webkit-tap-highlight-color: transparent;
+
+        display: flex;
+        flex-direction: row;      /* Строго в ряд */
+        align-items: center;      /* Центрирование всех элементов по вертикали */
+        justify-content: flex-start; /* Прижимаем всё к левому краю */
+        padding: 12px 16px;       /* Уменьшаем вертикальный padding для компактности */
+        gap: 12px;                /* Одинаковое расстояние между иконкой, текстом и стрелкой */
+        cursor: pointer;
+        list-style: none;
+    }
+    
+    summary::-webkit-details-marker { display: none; }
+
+    .card-header-mobile {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        display: contents; /* Позволяет иконке и h3 стать прямыми дочерними элементами flex-контейнера summary */
+        flex-grow: 1; /* Заставляет заголовок занять всё свободное место до стрелки */
     }
 
-    /* Иконки делаем чуть компактнее */
-    .card-icon {
-        width: 50px;
-        height: 50px;
-        margin-bottom: 16px;
+    .card-header-mobile .card-icon { 
+        flex-shrink: 0; /* Чтобы не сжималась */
+        background: rgba(140, 198, 63, 0.1);
+        color: var(--color-green);
+        border-radius: 10px;
+        width: 32px;
+        height: 32px;
+        margin: 0;         /* Обнуляем все внешние отступы */
+        flex-shrink: 0;    /* Запрещаем иконке сжиматься */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .card-header-mobile .card-icon svg {
+        width: 20px; /* Сама иконка внутри контейнера */
+        height: 20px;
     }
 
-    .service-card h3 {
-        font-size: 20px;
-        margin-bottom: 12px;
+    .card-header-mobile h3 { 
+        flex-grow: 1; 
+        font-weight: 700;
+        margin: 0;         /* Убираем дефолтные отступы заголовка */
+        font-size: 18px;
+        line-height: 1;    /* Чтобы высота строки не раздувала карточку */
+        flex-grow: 1;      /* Текст забирает всё свободное место, выталкивая стрелку вправо */
+        text-align: left;
+    }
+    
+    .accordion-arrow {
+        display: inline-block !important;
+        width: 10px;
+        height: 10px;
+        border-right: 2px solid var(--color-green); /* Толщина линий галочки */
+        border-bottom: 2px solid var(--color-green);
+        transform: rotate(45deg); /* Поворачиваем, чтобы получилась "птичка" */
+        transition: transform 0.3s ease;
+        margin-right: 5px; /* Чтобы не прилипала к правому краю */
+        margin-left: auto; /* Дополнительная страховка, чтобы стрелка всегда была справа */
+        margin-top: 0;     /* Сбрасываем прошлые правки центровки */
+        flex-shrink: 0;
     }
 
-    /* Списки услуг */
+    /* Когда аккордеон открыт — переворачиваем галочку */
+    details[open] .accordion-arrow {
+        transform: rotate(-135deg); /* Поворот вверх */
+        margin-top: 5px; /* Небольшая корректировка центра при перевороте */
+    }
+
+    /* Раскрывающийся контент */
+    .service-content {
+        padding: 0 12px 20px 60px;
+        text-align: left;
+    }
+
     .service-list li {
         font-size: 14px;
         margin-bottom: 8px;
-        line-height: 1.3;
+        color: var(--color-dark);
+        display: flex; /* Чтобы маркеры не улетали */
+        align-items: center;
+        gap: 8px;
     }
+
+    /* --- СЕРВИСЫ НА МОБИЛЕ (АККОРДЕОН) --- */
+    
+    /* 1. Возвращаем кликабельность */
+    .service-card details {
+        pointer-events: auto !important; 
+    }
+
+    /* 2. Скрываем контент по умолчанию (пока не нажато) */
+    .service-card details:not([open]) .service-content {
+        display: none !important;
+    }
+    
+    /* 3. Показываем контент при открытии */
+    .service-card details[open] .service-content {
+        display: block !important;
+        padding: 0 20px 20px 75px; /* Тот самый отступ под иконкой */
+    }
+
+    /* 4. ВОЗВРАЩАЕМ СТРЕЛКУ (проверь, что в HTML есть <span class="accordion-arrow">) */
+    .service-card .accordion-arrow {
+        display: inline-block !important;
+        color: var(--color-green);
+        font-size: 14px;
+        margin-left: auto; /* Выталкивает стрелку вправо */
+        transition: transform 0.3s ease;
+    }
+
+
+    /* Полностью убираем зеленое свечение и любые изменения тени при клике/ховере */
+    .service-card:hover, 
+    .service-card:active {
+        box-shadow: var(--glass-shadow) !important; /* Оставляем только стандартную тень стекла */
+        background: var(--glass-bg) !important;    /* Фиксируем фон */
+        border-color: rgba(255, 255, 255, 0.5) !important; /* Фиксируем рамку */
+    }
+
+    /* Убираем эффект «всплытия» всей карточки */
+    .service-card:hover {
+        transform: none !important;
+        background: var(--glass-bg) !important;
+        border-color: rgba(255, 255, 255, 0.5) !important;
+    }
+    /* Принудительно возвращаем иконку в дефолтное состояние */
+    .service-card .card-icon {
+        background: rgba(140, 198, 63, 0.1) !important; /* Бледный фон */
+        color: #5C8A2E !important; /* Темный цвет иконки */
+        transform: none !important;
+    }
+
+    /* Дублируем для состояния ховера/актива, чтобы браузер не подменял цвета */
+    .service-card:hover .card-icon,
+    .service-card:active .card-icon {
+        background: rgba(140, 198, 63, 0.1) !important;
+        color: #5C8A2E !important;
+    }
+
+    /* На мобилке скрываем контент, если details не открыт */
+    .service-card details:not([open]) .service-content {
+        display: none !important;
+    }
+
+    /* Показываем контент только при наличии атрибута open (после клика) */
+    .service-card details[open] .service-content {
+        display: block !important;
+    }
+    
 }
