@@ -627,6 +627,14 @@ h1 {
     padding-bottom: 100px;
 }
 
+/* Центрируем заголовок и добавляем отступы */
+.cta-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px auto; /* Отступ до стеклянной формы */
+    padding: 0 20px;
+}
+
 .cta-box {
     text-align: center;
     padding: 60px 40px;
@@ -642,6 +650,9 @@ h1 {
         inset 0 0 20px 5px rgba(255, 255, 255, 0.2);
     position: relative;
     overflow: hidden;
+    max-width: 800px; /* Ограничиваем ширину, чтобы не растягивалась */
+    margin: 0 auto;   /* Центрируем саму коробку */
+
 }
 
 /* Добавляем блик для CTA Box */
@@ -665,6 +676,7 @@ h1 {
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    margin: 0;
 }
 
 /* Форма в одну строку */
@@ -1376,5 +1388,191 @@ section.visible {
     .service-card details[open] .service-content {
         display: block !important;
     }
+
+
+
+
+    /* --- БЛОК СРАВНЕНИЯ (ИСПРАВЛЕНИЕ) --- */
     
+    .comparison-section {
+        padding: 40px 0;
+    }
+
+    /* 1. ГЛАВНОЕ ИСПРАВЛЕНИЕ: РОДИТЕЛЬ */
+    .comparison-container {
+        /* Отключаем обрезку теней! Иначе они не видны */
+        overflow: visible !important; 
+        
+        /* Убираем все стили родительской панели */
+        background: none !important; 
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Убираем "блик" родительского контейнера, который торчит из-под карточек */
+    .comparison-container::before {
+        display: none !important;
+    }
+
+    .comparison-header {
+        display: none;
+    }
+
+    /* 2. КАРТОЧКИ (Точная копия стилей .glass-panel) */
+    .comparison-row {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        
+        /* Копируем переменные, чтобы было 1-в-1 как везде */
+        background: var(--glass-bg) !important;
+        
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        
+        border: 1px solid rgba(255, 255, 255, 0.5) !important;
+        border-radius: 24px;
+        
+        /* Тень + Внутренний блик (как в .glass-panel) */
+        box-shadow: 
+            var(--glass-shadow),
+            inset 0 0 12px 2px rgba(255, 255, 255, 0.3) !important;
+            
+        padding: 24px 20px;
+        margin-bottom: 24px; /* Отступ снизу для тени */
+    }
+
+    /* Внутрянка карточки */
+    .comparison-row.no-border {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5) !important; 
+    }
+
+    .col-bad, .col-good { padding: 0; }
+    .comp-item { align-items: flex-start; }
+
+    .comp-item.bad {
+        position: relative;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed rgba(0,0,0,0.1);
+        opacity: 0.8;
+    }
+    
+    .comp-item.bad::after {
+        content: "↓";
+        position: absolute;
+        bottom: -14px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #fff;
+        color: var(--color-gray);
+        font-weight: bold;
+        font-size: 16px;
+        padding: 0 8px;
+        border-radius: 50%;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .comp-item.good { padding-top: 5px; }
+    .comp-item.good strong { color: var(--color-orange); font-size: 18px; }
+    .comp-item p { font-size: 14px; line-height: 1.4; }
+
+
+    /* --- CTA SECTION (ФОРМА ЗАЯВКИ) --- */
+    
+    .cta-section {
+        padding-bottom: 60px;
+    }
+
+    .cta-box {
+        padding: 40px 20px; /* Уменьшаем отступы внутри */
+        border-radius: 24px;
+    }
+
+    .cta-content h2 {
+        font-size: 24px; /* Чуть меньше заголовок */
+        line-height: 1.2;
+    }
+
+    .cta-content p {
+        font-size: 15px;
+        margin-bottom: 24px;
+    }
+
+    /* Форма: выстраиваем в колонку */
+    .cta-form {
+        flex-direction: column; /* Вертикально */
+        gap: 12px;
+        width: 100%;
+    }
+
+    .input-glass {
+        width: 100%; /* На всю ширину */
+        font-size: 16px; /* Чтобы iOS не зумил при вводе */
+    }
+
+    .cta-form .btn-primary {
+        width: 100%; /* Кнопка тоже на всю ширину */
+        justify-content: center;
+
+
+    }
+
+    .cta-header {
+        margin-bottom: 30px;
+    }
+    
+    .cta-box {
+        padding: 30px 20px; /* Чуть меньше паддинги на мобилке */
+    }
+
+
+    /* --- FOOTER (ПОДВАЛ) --- */
+
+    .footer {
+        padding-top: 40px;
+        text-align: left; /* Можно center, но списки лучше смотрятся слева */
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr; /* Одна колонка */
+        gap: 40px; /* Отступ между блоками */
+        margin-bottom: 30px;
+    }
+
+    /* Выравниваем логотип и описание */
+    .brand-col {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; 
+    }
+
+    .footer h4 {
+        margin-bottom: 16px;
+        font-size: 18px;
+    }
+
+    /* Увеличиваем кликабельную область ссылок в футере */
+    .footer-nav li {
+        margin-bottom: 16px;
+    }
+    
+    .footer-nav a {
+        font-size: 16px;
+        display: block;
+        padding: 4px 0;
+    }
+
+    /* Нижняя полоска (копирайт и статус) */
+    .footer-bottom {
+        flex-direction: column-reverse; /* Копирайт в самом низу */
+        gap: 16px;
+        text-align: center;
+        padding-bottom: 20px;
+    }
+
+
 }
