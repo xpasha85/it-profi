@@ -1132,4 +1132,62 @@ section.visible {
     .trust-label {
         font-size: 13px;
     }
+
+    /* --- ЭКОСИСТЕМА СЕРВИСОВ (MOBILE) --- */
+    .services-section {
+        padding: 40px 0; /* Поджимаем отступы секции */
+    }
+
+    /* Перестраиваем сетку из 3 колонок в 1 */
+    .services-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 16px; /* Небольшой зазор между карточками */
+        padding: 0 16px;
+    }
+
+    .service-card {
+        padding: 24px; /* Уменьшаем внутренние поля карточки */
+        width: 100%;
+        text-align: left;
+        
+        /* 1. ОТМЕНЯЕМ ПРЫЖОК: Перекрываем translateY(-10px) */
+        transform: none !important; 
+        
+        /* 2. СТАБИЛИЗИРУЕМ ФОН: Делаем его чуть плотнее сразу */
+        background: rgba(255, 255, 255, 0.6);
+        border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* ОТМЕНЯЕМ ХОВЕР-ЭФФЕКТЫ ДЛЯ ТАЧ-ЭКРАНОВ */
+    .service-card:hover {
+        transform: none !important;
+        /* Оставляем легкое свечение, но убираем сдвиг */
+        box-shadow: var(--glass-shadow); 
+    }
+
+    /* ВМЕСТО ХОВЕРА: ЛЕГКИЙ ОТКЛИК ПРИ НАЖАТИИ */
+    .service-card:active {
+        border-color: var(--color-green);
+        background: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Иконки делаем чуть компактнее */
+    .card-icon {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 16px;
+    }
+
+    .service-card h3 {
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+    /* Списки услуг */
+    .service-list li {
+        font-size: 14px;
+        margin-bottom: 8px;
+        line-height: 1.3;
+    }
 }
