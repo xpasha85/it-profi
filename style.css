@@ -847,8 +847,13 @@ section.visible {
     /* --- 3. БУРГЕР (ОСТАВЛЯЕМ КАК БЫЛО) --- */
     .burger-btn {
         display: flex;
-        width: 40px; /* Можно сделать чуть меньше для гармонии */
+        /* Убираем синий фон при нажатии на мобильных */
+        -webkit-tap-highlight-color: transparent; 
+        
+        /* Остальные свойства остаются без изменений */
+        width: 40px;
         height: 40px;
+        outline: none; /* Убираем рамку фокуса, если она появляется */
     }
 
     .main-nav,
