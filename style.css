@@ -1134,6 +1134,9 @@ section.visible {
     }
 
     /* --- ЭКОСИСТЕМА СЕРВИСОВ (MOBILE) --- */
+
+
+
     .services-section {
         padding: 40px 0; /* Поджимаем отступы секции */
     }
@@ -1146,17 +1149,51 @@ section.visible {
         padding: 0 16px;
     }
 
+
+    /* --- НАСТРОЙКИ ЗАГОЛОВКОВ В УСЛУГАХ (MOBILE) --- */
+    .services-section .section-title {
+        font-size: 26px;        /* Размер главного заголовка */
+        line-height: 1.2;       /* Плотность строк */
+        margin-bottom: 12px;    /* Отступ до подзаголовка */
+        padding: 0 10px;        /* Чтобы не лип к краям */
+        text-align: center;
+    }
+
+    .services-section .section-subtitle {
+        font-size: 15px;        /* Размер подзаголовка */
+        line-height: 1.5;
+        color: var(--color-gray);
+        margin-bottom: 40px;    /* ГЛАВНЫЙ ОТСТУП: от текста до первой карточки */
+        padding: 0 20px;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    /* Дополнительно: если заголовки карточек (h3) кажутся мелкими/крупными */
+    .service-card h3 {
+        font-size: 20px;        /* Название услуги внутри стекла */
+        margin-bottom: 16px;
+        font-weight: 700;
+        color: var(--color-dark);
+    }
+
     .service-card {
-        padding: 24px; /* Уменьшаем внутренние поля карточки */
+        padding: 30px 24px;
         width: 100%;
         text-align: left;
         
-        /* 1. ОТМЕНЯЕМ ПРЫЖОК: Перекрываем translateY(-10px) */
-        transform: none !important; 
-        
-        /* 2. СТАБИЛИЗИРУЕМ ФОН: Делаем его чуть плотнее сразу */
-        background: rgba(255, 255, 255, 0.6);
-        border-color: rgba(255, 255, 255, 0.4);
+        /* 1. ВОЗВРАЩАЕМ СТЕКЛО (как в Trust) */
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 
+            var(--glass-shadow),
+            inset 0 0 12px 2px rgba(255, 255, 255, 0.3);
+            
+        /* 2. УБИРАЕМ СКЕЙЛ (чтобы не дергалось при скролле) */
+        transform: none !important;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     /* ОТМЕНЯЕМ ХОВЕР-ЭФФЕКТЫ ДЛЯ ТАЧ-ЭКРАНОВ */
@@ -1168,8 +1205,14 @@ section.visible {
 
     /* ВМЕСТО ХОВЕРА: ЛЕГКИЙ ОТКЛИК ПРИ НАЖАТИИ */
     .service-card:active {
-        border-color: var(--color-green);
-        background: rgba(255, 255, 255, 0.9);
+        border-color: var(--color-green); /* Наша фирменная зеленая рамка */
+        background: rgba(255, 255, 255, 0.5); /* Чуть больше яркости */
+        box-shadow: 0 10px 30px rgba(140, 198, 63, 0.15); /* Зеленое свечение */
+    }
+
+    .service-card:active .card-icon {
+        background: var(--color-green);
+        color: #fff;
     }
 
     /* Иконки делаем чуть компактнее */
