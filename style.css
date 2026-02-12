@@ -817,6 +817,10 @@ section.visible {
     transition: all 0.3s ease;
 }
 
+.mobile-menu {
+    display: none; /* Скрыто везде по умолчанию */
+}
+
 /* --- MOBILE ADAPTATION --- */
 @media (max-width: 960px) {
     /* --- 1. НАСТРОЙКИ ОТСТУПОВ ХЕДЕРА --- */
@@ -850,6 +854,148 @@ section.visible {
     .main-nav,
     .header-actions {
         display: none;
+    }
+
+    /* Убираем стандартное синее выделение при нажатии на всех мобилках */
+    .mobile-nav a {
+        -webkit-tap-highlight-color: transparent;
+        position: relative;
+        padding: 10px 20px;
+        border-radius: 12px;
+        transition: all 0.2s ease;
+    }
+
+    /* Эффект при нажатии (активное состояние) */
+    .mobile-nav a:active {
+        background: rgba(140, 198, 63, 0.1); /* Наш зеленый, но очень прозрачный */
+        color: var(--color-green);
+        transform: scale(0.95); /* Легкое уменьшение при тапе */
+    }
+
+    /* Для телефона (номер) сделаем особый стиль при нажатии */
+    .mobile-nav a.mobile-phone:active {
+        background: rgba(243, 112, 33, 0.1); /* Оранжевый оттенок для телефона */
+        color: var(--color-orange) !important;
+    }
+
+    /* --- ПОЛНОЭКРАННОЕ МЕНЮ 2.0 --- */
+    .mobile-menu {
+        display: flex; /* Показываем только на мобильных */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.85); /* Плотность для читаемости */
+        
+        /* Глубокое размытие всего фона сайта */
+        backdrop-filter: blur(20px) saturate(160%);
+        -webkit-backdrop-filter: blur(20px) saturate(160%);
+        
+        z-index: 900; /* Ниже хедера (у хедера 1000) */
+        
+        /* Начальное состояние: скрыто и смещено */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        
+        padding-top: 120px; /* Отступ, чтобы текст не лез под хедер */
+    }
+
+    /* Когда меню активно */
+    .mobile-menu.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    /* Стили ссылок внутри */
+    .mobile-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+        width: 100%;
+    }
+
+    .mobile-nav a {
+        text-decoration: none;
+        color: var(--color-dark);
+        font-size: 24px;
+        font-weight: 700;
+        transition: color 0.3s;
+    }
+
+    .mobile-nav a:hover {
+        color: var(--color-orange);
+    }
+
+    /* Контейнер внизу меню — делаем его легче */
+    .mobile-footer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        margin-top: auto; /* Прижимаем к низу, если контента мало */
+        padding-bottom: 40px;
+        width: 100%;
+    }
+
+    /* Тонкая линия-разделитель над телефоном */
+    .mobile-footer::before {
+        content: "";
+        width: 40px;
+        height: 1px;
+        background: rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    .mobile-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--color-gray);
+        font-weight: 500;
+        opacity: 0.7;
+    }
+
+    /* Телефон как часть текста, а не как отдельный объект */
+    .mobile-phone-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        text-decoration: none;
+        color: var(--color-dark);
+        font-weight: 600;
+        font-size: 20px;
+        background: transparent; /* Убираем белый фон */
+        border: none; /* Убираем рамку */
+        box-shadow: none; /* Убираем тень */
+        transition: all 0.2s ease;
+    }
+
+    /* Мягкий эффект при нажатии */
+    .mobile-phone-btn:active {
+        transform: scale(0.95);
+        color: var(--color-orange); /* Только цветом показываем клик */
+    }
+
+    /* --- АНИМАЦИЯ БУРГЕРА В КРЕСТИК --- */
+    
+    /* 1. Верхняя линия: вниз и поворот */
+    .burger-btn.active .burger-line:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+
+    /* 2. Средняя линия: исчезает */
+    .burger-btn.active .burger-line:nth-child(2) {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+
+    /* 3. Нижняя линия: вверх и поворот */
+    .burger-btn.active .burger-line:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
     }
 
 }

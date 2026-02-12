@@ -43,5 +43,32 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(section);
     });
 
-    
+    // 3. ПОЛНОЭКРАННОЕ МОБИЛЬНОЕ МЕНЮ
+    const burgerBtn = document.querySelector('.burger-btn');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const body = document.body;
+
+    if (burgerBtn && mobileMenu) {
+        burgerBtn.addEventListener('click', () => {
+            // Переключаем активное состояние кнопки и меню
+            burgerBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            
+            // Блокируем скролл основной страницы, когда меню открыто
+            if (mobileMenu.classList.contains('active')) {
+                body.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = '';
+            }
+        });
+
+        // Закрываем меню при клике на ссылки
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                burgerBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                body.style.overflow = '';
+            });
+        });
+    }
 });
