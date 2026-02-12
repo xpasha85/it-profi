@@ -42,4 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
         section.classList.add('hidden'); // Сначала скрываем
         observer.observe(section);
     });
+
+    
 });

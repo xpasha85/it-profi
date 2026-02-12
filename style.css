@@ -791,3 +791,65 @@ section.visible {
     opacity: 1;
     transform: translateY(0); /* Встает на место */
 }
+
+
+/* --- BURGER MENU STYLES --- */
+.burger-btn {
+    display: none; /* Скрыта по умолчанию (на десктопе) */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px; /* Расстояние между полосками */
+    width: 48px;
+    height: 48px;
+    border-radius: 50%; /* Делаем идеально круглым */
+    cursor: pointer;
+    padding: 0;
+    z-index: 1100; /* Поверх всего */
+}
+
+/* Полоски бургера */
+.burger-line {
+    width: 20px;
+    height: 2px;
+    background-color: var(--color-dark);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* --- MOBILE ADAPTATION --- */
+@media (max-width: 960px) {
+    /* --- 1. НАСТРОЙКИ ОТСТУПОВ ХЕДЕРА --- */
+    .header {
+        /* Здесь настраиваются отступы от краев экрана */
+        /* padding: [сверху/снизу] [слева/справа]; */
+        padding: 10px 10px ; 
+    }
+
+    /* --- 2. ЛОГОТИП И СТАТУС --- */
+    .logo-img {
+        height: 28px; /* Уменьшаем размер лого (было 40px) */
+    }
+    
+    .logo-wrapper {
+        gap: 10px; /* Расстояние между картинкой лого и текстом System Online */
+    }
+
+    .system-status {
+        font-size: 9px; /* Уменьшаем шрифт статуса */
+        padding-left: 8px; /* Отступ разделительной черты */
+    }
+
+    /* --- 3. БУРГЕР (ОСТАВЛЯЕМ КАК БЫЛО) --- */
+    .burger-btn {
+        display: flex;
+        width: 40px; /* Можно сделать чуть меньше для гармонии */
+        height: 40px;
+    }
+
+    .main-nav,
+    .header-actions {
+        display: none;
+    }
+
+}
